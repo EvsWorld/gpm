@@ -25,52 +25,30 @@ function addData() {
 }
 
 
-
+// to be called on every form change. enables submit button when form is complete and disables it when not complete
 const validate = () => {
-  // console.log('id = ', id);
-  // let x = document.getElementById(id);
-  // console.log('Validate called!! x.value = ', x.value);
   const form = document.getElementById('form');
   console.log('form = ', form );
   console.log('form.elements = ', form.elements );
   const formElems = form.querySelectorAll('div > input');
   console.log('formElems = ', formElems );
   const divs = form.getElementsByTagName('div');
-  console.log('divs =', divs);
-  // formElems.forEach( elem => {
-  //   console.log('elem = ', elem);
 
-  // console.log('formElems.elements= ',formElems.elements);
-
-
-    // const itsDone = false;
-  // for (let elem of divs) {
-  // console.log('type of div ', typeof(divs));
-    const itsDone = [...divs].every( elem => {
-      let subElem = elem.querySelectorAll('input, select');
-      console.log('subElem = ', subElem);
-      return [...subElem].every( att => {
-        return att.value
-      });
+  const formIncomplete = ![...divs].every( elem => {
+    let subElem = elem.querySelectorAll('input, select');
+    console.log('subElem = ', subElem);
+    return [...subElem].every( att => {
+      return att.value
     });
-  //   console.log('subElem by tag = ', subElem);
-  //   for (let attribute of subElem) {
-  //     // console.log('is there an attribute??');
-  //     console.log('attribute = ', attribute);
-  //     console.log('attribute.value = ', attribute.value);
-  //   }
-  // }
+  });
 
-  console.log('itsDone = ', itsDone);
-  // const formComplete = formElems.every( elem => {
-  //   console.log('every...', elem.value.value);
-  //   return elem.value.value !== "";
-  // });
-  // console.log('form is complete = ', formComplete);
+  console.log('formIncomplete = ', formIncomplete);
+  // const disabledOrNull = formIncomplete ? false : 'disabled';
+  // console.log('disabledOrNull = ', disabledOrNull);
+
+  let addButton = document.querySelectorAll('#add-button')[0];
+  console.log(`document.querySelectorAll('#add-button')[0] = `, document.querySelectorAll('#add-button')[0]);
+
+  addButton.disabled = formIncomplete;
 
 }
-
-// var button = document.getElementById("button-one");
-// button.addEventListener('click', function(event) {
-//   addData();
-// });

@@ -52,12 +52,12 @@
           <label for="device-model">Model</label>
           <input onchange='validate()' id='device-model' type='text' name='model' placeholder='Model' required>
         </div>
-        <!-- <div class="install-date">
+        <div class="install-date">
           <label for="device-install-date">Installation date</label>
-          <input id='device-install-date' type='date' name='installation'>
-        </div> -->
+          <input onchange='validate()' id='device-install-date' type='date' name='installation'>
+        </div>
         <br />
-        <Button onclick='addData()' id='my-button' value='Add'>Add</Button>
+        <Button disabled onclick='addData()' id='add-button' value='Add'>Add</Button>
         <!-- <div id='button-one' value='Add'>Button One</div> -->
       </form>
     </div>
