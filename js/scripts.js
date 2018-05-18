@@ -26,17 +26,47 @@ function addData() {
 
 
 
-const validate = (id) => {
+const validate = () => {
   // console.log('id = ', id);
-  let x = document.getElementById(id);
+  // let x = document.getElementById(id);
   // console.log('Validate called!! x.value = ', x.value);
-  const myForm = document.getElementById('my-form');
-  console.log('myForm = ', myForm );
-  const myFormElems = myForm.children;
-  console.log('myFormElems = ', myFormElems );
-  myFormElems.forEach( elem => {
-      console.log(elem)
-  });
+  const form = document.getElementById('form');
+  console.log('form = ', form );
+  console.log('form.elements = ', form.elements );
+  const formElems = form.querySelectorAll('div > input');
+  console.log('formElems = ', formElems );
+  const divs = form.getElementsByTagName('div');
+  console.log('divs =', divs);
+  // formElems.forEach( elem => {
+  //   console.log('elem = ', elem);
+
+  // console.log('formElems.elements= ',formElems.elements);
+
+
+    // const itsDone = false;
+  // for (let elem of divs) {
+  // console.log('type of div ', typeof(divs));
+    const itsDone = [...divs].every( elem => {
+      let subElem = elem.querySelectorAll('input, select');
+      console.log('subElem = ', subElem);
+      return [...subElem].every( att => {
+        return att.value
+      });
+    });
+  //   console.log('subElem by tag = ', subElem);
+  //   for (let attribute of subElem) {
+  //     // console.log('is there an attribute??');
+  //     console.log('attribute = ', attribute);
+  //     console.log('attribute.value = ', attribute.value);
+  //   }
+  // }
+
+  console.log('itsDone = ', itsDone);
+  // const formComplete = formElems.every( elem => {
+  //   console.log('every...', elem.value.value);
+  //   return elem.value.value !== "";
+  // });
+  // console.log('form is complete = ', formComplete);
 
 }
 

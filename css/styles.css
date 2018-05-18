@@ -10,28 +10,57 @@ body {
   flex-direction: column;
   align-items: center;
 }
-button {
-  width: auto;
-}
-
-#my-form {
+.outer-container {
+  border: 3px solid #eee;
+  padding: 2em;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  align-items: center;
+}
+button {
+  align-self: flex-end;
+  background-color: #eee;
+  width: 6em;
+  
+}
+h1 {
+  padding: 0;
+  margin: auto;
+  font-size: 1.7em;
+
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   border: 1px solid green;
-  max-width: 50em;
-  margin: 5em;
+  background-color: #eee;
+  max-width: 25em;
+  margin: 2em;
+  padding: 0.8em;
+}
+
+#form > div {
+  margin: 0.3em;
+  /* padding: 0.3em; */
 }
 
 .table-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-top: 5em;
+  border: 1px solid blue;
+
 }
 .above-table {
   display: flex;
   justify-content: space-between;
+
+}
+
+.above-table > div {
+  font-weight: bold;
 }
 
 table, th, td {
@@ -50,5 +79,5 @@ table#table-one tr:nth-child(odd) {
 }
 table#table-one th {
     color: black;
-    background-color: gray;
+    background-color: rgb(199, 203, 204);
 }

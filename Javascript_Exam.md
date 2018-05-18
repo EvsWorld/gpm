@@ -19,11 +19,12 @@ Attached image with the basic design of the page.
 
 Functions to be implemented:
 
-- Implement validate function. Validate that there are no empty fields before insert device data.
+~~Implement validate function. Validate that there are no empty fields before insert device data.~~
+
 - Implement insert function. When you press 'Add' button you should automatically insert a new row in the table with the device data.
 - Implement remove function. When you press remove button you should automatically delete a correspondent row in the table.
 - Implement sorting function. The rows can be sorted by: Name (A-Z) or Installation date (most recent). When you select sort options you should automatically sort rows in the table.
-  
+
 Requirements: 
 - For the implementation you should only use basic javascript. Don't use external libraries such as Moment.js, Bootstrap and others.
 - This exercise should be done within 2 hours. In case you feel the code could be improved, please, add comments to the code where appropriate.
