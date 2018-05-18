@@ -1,0 +1,54 @@
+/* table, th, td {
+    border: 1px solid black;
+}
+th {
+    cursor: pointer;
+} */
+body {
+  padding: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+button {
+  width: auto;
+}
+
+#my-form {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  border: 1px solid green;
+  max-width: 50em;
+  margin: 5em;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 5em;
+}
+.above-table {
+  display: flex;
+  justify-content: space-between;
+}
+
+table, th, td {
+    border: 1px solid yellow;
+    border-collapse: collapse;
+
+}
+th, td {
+    padding: 10px;
+}
+table#table-one tr:nth-child(even) {
+    background-color: #eee;
+}
+table#table-one tr:nth-child(odd) {
+    background-color: #fff;
+}
+table#table-one th {
+    color: black;
+    background-color: gray;
+}
