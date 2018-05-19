@@ -21,7 +21,7 @@ button {
   align-self: flex-end;
   background-color: #eee;
   width: 6em;
-  
+
 }
 h1 {
   padding: 0;
@@ -30,7 +30,7 @@ h1 {
 
 }
 
-#form {
+#form-one {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -41,7 +41,7 @@ h1 {
   padding: 0.8em;
 }
 
-#form > div {
+#form-one > div {
   margin: 0.3em;
   /* padding: 0.3em; */
 }

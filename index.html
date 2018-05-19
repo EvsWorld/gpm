@@ -23,12 +23,12 @@
   <div class="outer-container">
     <h1>Manage Connection Devices</h1>
     <div class="form-container">
-      <form id='form'>
-        <div class='name'>
+      <form id='form-one'>
+        <div class='name-container'>
           <label for="device-name">Name</label>
           <input onchange='validate()' type='text' id='device-name' name='name' placeholder='name' required>
         </div>
-        <div class='type'>
+        <div class='type-container'>
             Type
           <select onchange='validate()' id='device-type' name='type' required>
             <option value='hub'>ping </option>
@@ -39,7 +39,7 @@
             <option value='repeater'>Repeater</option>
           </select>
         </div>
-        <div class="dBrand">
+        <div class="brand-container">
           <label for="device-brand">Brand</label>
           <select onchange='validate()' id='device-brand' name='brand' required>
             <option value='linksys'>Linksys</option>
@@ -48,18 +48,18 @@
             <option value='Cnet'>Cnet</option>
           </select>
         </div>
-        <div class="dModel">
+        <div class="model-container">
           <label for="device-model">Model</label>
           <input onchange='validate()' id='device-model' type='text' name='model' placeholder='Model' required>
         </div>
-        <div class="install-date">
+        <div class="install-date-container">
           <label for="device-install-date">Installation date</label>
           <input onchange='validate()' id='device-install-date' type='date' name='installation'>
         </div>
         <br />
-        <Button disabled onclick='addData()' id='add-button' value='Add'>Add</Button>
         <!-- <div id='button-one' value='Add'>Button One</div> -->
       </form>
+      <Button disabled onclick='addData()' id='add-button' value='Add'>Add</Button>
     </div>
 
     <div class='table-container'>
