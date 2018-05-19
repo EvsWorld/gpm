@@ -1,8 +1,6 @@
 'use-strict';
 
 function addData() {
-  // e.preventDefault();
-
     var tableOne = document.getElementById("table-one");
     var formOne = document.getElementById("form-one");
     var row = tableOne.insertRow(tableOne.length);

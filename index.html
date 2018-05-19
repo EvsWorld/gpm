@@ -29,24 +29,24 @@
           <input onchange='validate()' type='text' id='device-name' name='name' placeholder='name' required>
         </div>
         <div class='type-container'>
-            Type
+          Type
           <select onchange='validate()' id='device-type' name='type' required>
-            <option value='hub'>ping </option>
-            <option value='switch'>Switch</option>
-            <option value='modem'>nope</option>
-            <option value='router'>Router</option>
-            <option value='bridge'>Bridge</option>
-            <option value='repeater'>Repeater</option>
-          </select>
+              <option value='hub'>ping </option>
+              <option value='switch'>Switch</option>
+              <option value='modem'>nope</option>
+              <option value='router'>Router</option>
+              <option value='bridge'>Bridge</option>
+              <option value='repeater'>Repeater</option>
+            </select>
         </div>
         <div class="brand-container">
           <label for="device-brand">Brand</label>
           <select onchange='validate()' id='device-brand' name='brand' required>
-            <option value='linksys'>Linksys</option>
-            <option value='cisco'>Cisco</option>
-            <option value='surecom'>Surecom</option>
-            <option value='Cnet'>Cnet</option>
-          </select>
+              <option value='linksys'>Linksys</option>
+              <option value='cisco'>Cisco</option>
+              <option value='surecom'>Surecom</option>
+              <option value='Cnet'>Cnet</option>
+            </select>
         </div>
         <div class="model-container">
           <label for="device-model">Model</label>
@@ -56,9 +56,9 @@
           <label for="device-install-date">Installation date</label>
           <input onchange='validate()' id='device-install-date' type='date' name='installation'>
         </div>
-        <br />
-        <!-- <div id='button-one' value='Add'>Button One</div> -->
       </form>
+    </div>
+    <div class="button-box">
       <Button disabled onclick='addData()' id='add-button' value='Add'>Add</Button>
     </div>
 
