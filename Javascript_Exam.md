@@ -21,7 +21,8 @@ Functions to be implemented:
 
 ~~Implement validate function. Validate that there are no empty fields before insert device data.~~
 
-- Implement insert function. When you press 'Add' button you should automatically insert a new row in the table with the device data.
+~~Implement insert function. When you press 'Add' button you should automatically insert a new row in the table with the device data.~~
+
 - Implement remove function. When you press remove button you should automatically delete a correspondent row in the table.
 - Implement sorting function. The rows can be sorted by: Name (A-Z) or Installation date (most recent). When you select sort options you should automatically sort rows in the table.
 

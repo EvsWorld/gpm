@@ -1,30 +1,74 @@
 'use-strict';
 
-function addData() {
-    var tableOne = document.getElementById("table-one");
-    var formOne = document.getElementById("form-one");
-    var row = tableOne.insertRow(tableOne.length);
-    console.log('tableOne', tableOne);
-    console.log('row: ', row);
+const store = [
+  {
+  deviceName: '',
+  deviceType: '',
+  deviceBrand: '',
+  deviceModel: '',
+  deviceInstallDate: ''
+  }
+];
 
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);
-    cell1.innerHTML = document.querySelectorAll('#device-name')[0].value;
-    cell2.innerHTML = document.querySelectorAll('#device-type')[0].value;
-    cell3.innerHTML = document.querySelectorAll('#device-brand')[0].value;
-    cell4.innerHTML = document.querySelectorAll('#device-model')[0].value;
-    cell5.innerHTML = document.querySelectorAll('#device-install-date')[0].value;
-    cell6.innerHTML = 'trashcan';
+function addData() {
+  const tableOne = document.getElementById("table-one");
+  const formOne = document.getElementById("form-one");
+  const inputIds = ['device-name', 'device-type', 'device-brand', 'device-model', 'device-install-date'];
+    // const tblHeaders = document.querySelectorAll('th');
+    // console.log(tblHeaders);
+    // [...tblHeaders].map( el => {
+    //   el = el.textContent
+    //   console.log('Header text content:  ', el);
+    // });
+
+    console.log('tableOne: ', tableOne);
+    const newRow = tableOne.insertRow(tableOne.length);
+    // console.log('tableOne', tableOne);
+    // console.log('newRow: ', newRow);
+    console.log(typeof(newRow));
+    console.log(newRow);
+    inputIds.map( (tag, index) => {
+      console.log('tag : ', tag);
+      let inserted = newRow.insertCell(index);
+      console.log('tag after insert : ', tag);
+      inserted.innerHTML = document.querySelectorAll(`#${tag}`)[0].value;
+    });
     // reset fields
     formOne.reset();
-
 }
 
+function addDataObject () {
+  const inputIds = ['device-name', 'device-type', 'device-brand', 'device-model', 'device-install-date'];
+  // build object
+  inputIds.forEach( tag => {
+    let newRow = {};
+    newRow.tag = document.querySelectorAll(`#${tag}`)[0].value;
+    console.log('newRow = ', newRow);
+  });
+  store.push(newRow); // push on store
 
+  // render row to table
+  renderTable(store, tableOne);
+
+  // reset fields
+  formOne.reset();
+};
+
+function renderTable (storeR, tableR) {
+  storeR.forEach( post => {
+    renderRow(post);
+  // console.log('tableOne', tableOne);
+  // console.log('newRow: ', newRow);
+  });
+};
+
+function renderRow (row) {
+  let newRow = tableOne.insertRow(tableOne.length);
+  row.forEach( (field, index) => {
+    let inserted = newRow.insertCell(index);
+    inserted.innerHTML = field;
+  });
+};
 
 // to be called on every form change. enables submit button when form is complete and disables it when not complete
 const validate = () => {
