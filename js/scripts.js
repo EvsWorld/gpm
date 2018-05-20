@@ -1,13 +1,13 @@
 'use-strict';
 
 const store = [
-  {
-  deviceName: '',
-  deviceType: '',
-  deviceBrand: '',
-  deviceModel: '',
-  deviceInstallDate: ''
-  }
+  // {
+  // deviceName: '',
+  // deviceType: '',
+  // deviceBrand: '',
+  // deviceModel: '',
+  // deviceInstallDate: ''
+  // }
 ];
 
 function addData() {
@@ -38,34 +38,52 @@ function addData() {
 }
 
 function addDataObject () {
+  const tableOne = document.getElementById("table-one");
   const inputIds = [['device-name','deviceName'], ['device-type','deviceType'], ['device-brand','deviceBrand'], ['device-model','deviceModel'], ['device-install-date','deviceInstallDate']];
+  const formOne = document.getElementById("form-one");
+
   // build object
   let newRow = {};
   inputIds.forEach( tag => {
     newRow[tag[1]] = document.querySelectorAll(`#${tag[0]}`)[0].value;
-    console.log('newRow = ', newRow);
+    // console.log('newRow = ', newRow);
   });
   store.push(newRow); // push on store
   console.log('store = ',store);
-  // render row to table
-  renderTable(store, tableOne);
-
+  // render table
+  // renderTable(store, tableOne);
+  renderLastRow(store, tableOne)
   // reset fields
   formOne.reset();
 };
 
-function renderTable (storeR, tableR) {
-  storeR.forEach( post => {
-    renderRow(post);
-  // console.log('tableOne', tableOne);
-  // console.log('newRow: ', newRow);
+function renderLastRow (storeR, tableR) {
+  let newRow = tableR.insertRow(tableR.length);
+  const postToRender = storeR[storeR.length-1]
+  fillRow(postToRender, newRow);
+};
+
+function fillRow (dataToRender, row) {
+  console.log('dataToRender: ', dataToRender);
+  Object.values(dataToRender).forEach( (field, index) => {
+    let inserted = row.insertCell(index);
+    inserted.innerHTML = field;
   });
 };
 
-function renderRow (row) {
-  let newRow = tableOne.insertRow(tableOne.length);
-  row.forEach( (field, index) => {
-    let inserted = newRow.insertCell(index);
+// not using
+function renderTable (storeR, tableR) {
+  storeR.forEach( post => {
+    let newRow = tableR.insertRow(tableR.length);
+    fillRow(post, newRow);
+  });
+};
+
+function fillRowLast (dataToRender, row) {
+  console.log('dataToRender: ', dataToRender);
+
+  Object.values(dataToRender).forEach( (field, index) => {
+    let inserted = row.insertCell(index);
     inserted.innerHTML = field;
   });
 };
