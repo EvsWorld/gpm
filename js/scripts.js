@@ -39,17 +39,17 @@ function addData() {
 
 function addDataObject () {
   const tableOne = document.getElementById("table-one");
-  const inputIds = [['device-name','deviceName'], ['device-type','deviceType'], ['device-brand','deviceBrand'], ['device-model','deviceModel'], ['device-install-date','deviceInstallDate']];
+  const inputIds = [['device-name','deviceName'], ['device-type','deviceType'], ['device-brand','deviceBrand'], ['device-model','deviceModel'], ['device-install-date','deviceInstallDate'], ['id', 'id']];
   const formOne = document.getElementById("form-one");
 
   // build object
   let newRow = {};
   inputIds.forEach( tag => {
-    newRow[tag[1]] = document.querySelectorAll(`#${tag[0]}`)[0].value;
-    // console.log('newRow = ', newRow);
+    newRow[tag[1]] =  document.querySelectorAll(`#${tag[0]}`)[0] ? document.querySelectorAll(`#${tag[0]}`)[0].value : new Date();
+    console.log('newRow = ', newRow);
   });
   store.push(newRow); // push on store
-  console.log('store = ',store);
+  console.log('store = ', store);
   // render table
   // renderTable(store, tableOne);
   renderLastRow(store, tableOne)
@@ -57,19 +57,29 @@ function addDataObject () {
   formOne.reset();
 };
 
+
 function renderLastRow (storeR, tableR) {
+  const fillRow = (dataToRender, row) => {
+    const lastIndex = dataToRender[dataToRender.length-1]
+    console.log('dataToRender: ', dataToRender);
+    dataToRender = Object.values(dataToRender);
+    dataToRender = dataToRender.slice(0, dataToRender.length-1);
+    dataToRender.forEach( (field, index) => {
+      let inserted = row.insertCell(index);
+      inserted.innerHTML = field;
+    });
+    let trashButton = row.insertCell(lastIndex);
+    trashButton.innerHTML = `<i class='fas fa-caret-down'></i>`;
+    console.log('this = ', this);
+    trashButton.onclick = this.tableR.deleteRow(this)
+  };
+
   let newRow = tableR.insertRow(tableR.length);
+  newRow.setAttribute('storeId', 'dummy')
   const postToRender = storeR[storeR.length-1]
   fillRow(postToRender, newRow);
 };
 
-function fillRow (dataToRender, row) {
-  console.log('dataToRender: ', dataToRender);
-  Object.values(dataToRender).forEach( (field, index) => {
-    let inserted = row.insertCell(index);
-    inserted.innerHTML = field;
-  });
-};
 
 // not using
 function renderTable (storeR, tableR) {
