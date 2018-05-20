@@ -38,15 +38,15 @@ function addData() {
 }
 
 function addDataObject () {
-  const inputIds = ['device-name', 'device-type', 'device-brand', 'device-model', 'device-install-date'];
+  const inputIds = [['device-name','deviceName'], ['device-type','deviceType'], ['device-brand','deviceBrand'], ['device-model','deviceModel'], ['device-install-date','deviceInstallDate']];
   // build object
+  let newRow = {};
   inputIds.forEach( tag => {
-    let newRow = {};
-    newRow.tag = document.querySelectorAll(`#${tag}`)[0].value;
+    newRow[tag[1]] = document.querySelectorAll(`#${tag[0]}`)[0].value;
     console.log('newRow = ', newRow);
   });
   store.push(newRow); // push on store
-
+  console.log('store = ',store);
   // render row to table
   renderTable(store, tableOne);
 
