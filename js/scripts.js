@@ -11,34 +11,6 @@ const store = [
   // }
 ];
 
-
-function addData() {
-  const tableOne = document.getElementById("table-one");
-  const formOne = document.getElementById("form-one");
-  const inputIds = ['device-name', 'device-type', 'device-brand', 'device-model', 'device-install-date'];
-    // const tblHeaders = document.querySelectorAll('th');
-    // console.log(tblHeaders);
-    // [...tblHeaders].map( el => {
-    //   el = el.textContent
-    //   console.log('Header text content:  ', el);
-    // });
-
-    console.log('tableOne: ', tableOne);
-    const newRow = tableOne.insertRow(tableOne.length);
-    // console.log('tableOne', tableOne);
-    // console.log('newRow: ', newRow);
-    console.log(typeof(newRow));
-    console.log(newRow);
-    inputIds.map( (tag, index) => {
-      console.log('tag : ', tag);
-      let inserted = newRow.insertCell(index);
-      console.log('tag after insert : ', tag);
-      inserted.innerHTML = document.querySelectorAll(`#${tag}`)[0].value;
-    });
-    // reset fields
-    formOne.reset();
-}
-
 function addDataObject () {
   const tableOne = document.getElementById("table-one");
   const inputIds = [['device-name','deviceName'], ['device-type','deviceType'], ['device-brand','deviceBrand'], ['device-model','deviceModel'], ['device-install-date','deviceInstallDate'], ['id', 'id']];
@@ -60,15 +32,15 @@ function addDataObject () {
 };
 
 const fillRow = (storeR, tableR, dataToRender, row) => {
-  console.log('(from fill row 1 )    dataToRender: ', dataToRender);
-  console.log('typeof dataToRender = ', typeof dataToRender);
+  // console.log('(from fill row 1 )    dataToRender: ', dataToRender);
+  // console.log('typeof dataToRender = ', typeof dataToRender);
   // dataToRender = Object.values(dataToRender);
   // console.log('Object.values(dataToRender): ', dataToRender);
   const lastIndex = dataToRender.length-1;
-  console.log('lastIndex = ', lastIndex);
+  // console.log('lastIndex = ', lastIndex);
   // cut off id from end
   dataToRender = dataToRender.slice(0, dataToRender.length-1);
-  console.log('dataToRender: ', dataToRender);
+  // console.log('dataToRender: ', dataToRender);
   dataToRender.forEach( (field, index) => {
     let inserted = row.insertCell(index);
     inserted.innerHTML = field;
@@ -86,18 +58,20 @@ function renderLastRow (storeR, tableR) {
   const postToRender = Object.values(storeR[storeR.length-1]);
   // console.log('dataToRender: ', dataToRender);
   let newRow = tableR.insertRow(tableR.length);
-  console.log('from renderLastRow,     postToRender = ', postToRender);
+  // console.log('from renderLastRow,     postToRender = ', postToRender);
   fillRow(storeR, tableR, postToRender, newRow);
 };
 
 function deleteTheRow (post, storeR, tableR) {
+  console.trace('store when enter deleteRow = ', storeR);
   const itemId = post.pop()
     storeR.forEach( (p,i) => {
       // console.log('p.id = ', p.id);
       // console.log('itemId = ', itemId);
       if (p.id === itemId) {
+        console.log(enter);
         storeR.splice(i,1);
-        console.log('storeR after = ', storeR);
+
       }
     });
     // now remove the elements and rerender the whole table
@@ -119,27 +93,18 @@ function renderTable (storeR, tableR) {
   });
 };
 
-function fillRowLast (dataToRender, row) {
-  console.log('dataToRender: ', dataToRender);
-
-  Object.values(dataToRender).forEach( (field, index) => {
-    let inserted = row.insertCell(index);
-    inserted.innerHTML = field;
-  });
-};
-
 // to be called on every form change. enables submit button when form is complete and disables it when not complete
 const validate = () => {
   const form = document.getElementById('form-one');
-  console.log('form = ', form );
-  console.log('form.elements = ', form.elements );
+  // console.log('form = ', form );
+  // console.log('form.elements = ', form.elements );
   const formElems = form.querySelectorAll('div > input');
-  console.log('formElems = ', formElems );
+  // console.log('formElems = ', formElems );
   const divs = form.getElementsByTagName('div');
 
   const formIncomplete = ![...divs].every( elem => {
     let subElem = elem.querySelectorAll('input, select');
-    console.log('subElem = ', subElem);
+    // console.log('subElem = ', subElem);
     return [...subElem].every( att => {
       return att.value
     });
@@ -150,7 +115,7 @@ const validate = () => {
   // console.log('disabledOrNull = ', disabledOrNull);
 
   let addButton = document.querySelectorAll('#add-button')[0];
-  console.log(`document.querySelectorAll('#add-button')[0] = `, document.querySelectorAll('#add-button')[0]);
+  // console.log(`document.querySelectorAll('#add-button')[0] = `, document.querySelectorAll('#add-button')[0]);
 
   addButton.disabled = formIncomplete;
 
