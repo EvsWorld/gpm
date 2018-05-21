@@ -35,10 +35,7 @@ function addData () {
 const fillRow = (storeR, tableR, postData, row) => {
   const id = postData.pop();
   const indexToTackTrash = postData.length;
-  console.trace('id = ', id);
-  console.trace('postData (after pop()) = ', postData)
   // cut off id from end (bc doesn't need to be rendered)
-  // const dataToRender = postData.slice(0, postData.length-1);
   postData.forEach( (field, index) => {
     let inserted = row.insertCell(index);
     inserted.innerHTML = field;
@@ -50,10 +47,8 @@ const fillRow = (storeR, tableR, postData, row) => {
 
 
 function renderLastRow (storeR, tableR) {
-  console.trace('tableR = ', tableR );
   const postToRender = Object.values(storeR[storeR.length-1]);
   const tableRbody = tableR.getElementsByTagName('tbody')[0];
-  console.trace('tableRbody = ', tableRbody);
   let newRow = tableRbody.insertRow(tableRbody.rows.length);
   fillRow(storeR, tableRbody, postToRender, newRow);
 };
@@ -75,20 +70,20 @@ function deleteTheRow (postId, storeR, tableR) {
 function renderTable (storeR, tableR) {
   console.log('enter renderTable!!!!!');
   // clear table before rerender
-  console.trace(' tableR = ', tableR)
-  // const tableRbody = tableR.getElementsByTagName('tbody')[0];
-  // console.trace('tableRbody = ', tableRbody);
+  const tableRbody = tableR.getElementsByTagName('tbody')[0];
   const new_tbody = document.createElement('tbody');
-  console.log('new_tbody = ', new_tbody);
-  // render all store data
+  // render all store data to 'new_tbody'
   storeR.forEach( post => {
     let newRow = new_tbody.insertRow(tableR.length);
     let postArray = Object.values(post);
-    console.trace('postArray = ', postArray);
     fillRow(storeR, new_tbody, postArray, newRow);
   });
+  // replace old table body with 'new_tbody'
   tableR.parentNode.replaceChild(new_tbody, tableR);
+  console.trace(`after renderTable, store = `, store);
 };
+
+
 
 // to be called on every form change. enables submit button when form is complete and disables it when not complete
 const validate = () => {
