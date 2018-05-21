@@ -20,7 +20,7 @@ function addDataObject () {
   let newRow = {};
   inputIds.forEach( tag => {
     newRow[tag[1]] =  document.querySelectorAll(`#${tag[0]}`)[0] ? document.querySelectorAll(`#${tag[0]}`)[0].value : Date.now().toString();
-    console.log('newRow = ', newRow);
+    // console.log('newRow = ', newRow);
   });
   store.push(newRow); // push on store
   console.log('store = ', store);
@@ -31,24 +31,20 @@ function addDataObject () {
   formOne.reset();
 };
 
-const fillRow = (storeR, tableR, dataToRender, row) => {
-  // console.log('(from fill row 1 )    dataToRender: ', dataToRender);
-  // console.log('typeof dataToRender = ', typeof dataToRender);
-  // dataToRender = Object.values(dataToRender);
-  // console.log('Object.values(dataToRender): ', dataToRender);
-  const lastIndex = dataToRender.length-1;
-  // console.log('lastIndex = ', lastIndex);
-  // cut off id from end
-  dataToRender = dataToRender.slice(0, dataToRender.length-1);
-  // console.log('dataToRender: ', dataToRender);
-  dataToRender.forEach( (field, index) => {
+const fillRow = (storeR, tableR, postData, row) => {
+  const id = postData.pop();
+  const indexToTackTrash = postData.length;
+  console.trace('id = ', id);
+  console.trace('postData (after pop()) = ', postData)
+  // cut off id from end (bc doesn't need to be rendered)
+  // const dataToRender = postData.slice(0, postData.length-1);
+  postData.forEach( (field, index) => {
     let inserted = row.insertCell(index);
     inserted.innerHTML = field;
   });
-  let trashButton = row.insertCell(lastIndex);
+  let trashButton = row.insertCell(indexToTackTrash);
   trashButton.innerHTML = `<i class='fas fa-trash'></i>`;
-  // trashButton.setAttribute('storeIdTr', 'test1');
-  trashButton.onclick = deleteTheRow.bind(null, dataToRender, storeR, tableR)
+  trashButton.onclick = deleteTheRow.bind(null, id, storeR, tableR)
 };
 
 
@@ -62,15 +58,17 @@ function renderLastRow (storeR, tableR) {
   fillRow(storeR, tableR, postToRender, newRow);
 };
 
-function deleteTheRow (post, storeR, tableR) {
-  console.trace('store when enter deleteRow = ', storeR);
-  const itemId = post.pop()
+function deleteTheRow (postId, storeR, tableR) {
+  // console.trace('store', storeR);
+  // const itemId = post.pop()
+  console.trace('postId = ', postId)
     storeR.forEach( (p,i) => {
       // console.log('p.id = ', p.id);
       // console.log('itemId = ', itemId);
-      if (p.id === itemId) {
-        console.log(enter);
+      if (p.id === postId) {
+        console.trace(`after enter 'if', storeR = `, storeR);
         storeR.splice(i,1);
+        console.trace('store after splice in deleteRow = ', storeR);
 
       }
     });
@@ -88,7 +86,7 @@ function renderTable (storeR, tableR) {
   storeR.forEach( post => {
     let newRow = tableR.insertRow(tableR.length);
     let postArray = Object.values(post);
-    console.log('from renderLastRow,     post = ', post);
+    console.trace('postArray = ', postArray);
     fillRow(storeR, tableR, postArray, newRow);
   });
 };
@@ -110,7 +108,7 @@ const validate = () => {
     });
   });
 
-  console.log('formIncomplete = ', formIncomplete);
+  // console.log('formIncomplete = ', formIncomplete);
   // const disabledOrNull = formIncomplete ? false : 'disabled';
   // console.log('disabledOrNull = ', disabledOrNull);
 
