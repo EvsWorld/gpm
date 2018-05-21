@@ -68,9 +68,10 @@ function deleteTheRow (postId, storeR, tableR) {
 
 // not using
 function renderTable (storeR, tableR) {
+  sortDevices(storeR, tableR)
   console.log('enter renderTable!!!!!');
   // clear table before rerender
-  const tableRbody = tableR.getElementsByTagName('tbody')[0];
+  // const tableRbody = tableR.getElementsByTagName('tbody')[0];
   const new_tbody = document.createElement('tbody');
   // render all store data to 'new_tbody'
   storeR.forEach( post => {
@@ -83,7 +84,12 @@ function renderTable (storeR, tableR) {
   console.trace(`after renderTable, store = `, store);
 };
 
-
+function sortDevices () {
+  const e = document.getElementById('filter');
+  const sortBy = e.options[e.selectedIndex].value;
+  console.log('sortBy = ', sortBy)
+  store.sort(function(a,b) {return (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0);} );
+}
 
 // to be called on every form change. enables submit button when form is complete and disables it when not complete
 const validate = () => {
@@ -104,4 +110,11 @@ const validate = () => {
 
   let addButton = document.querySelectorAll('#add-button')[0];
   addButton.disabled = formIncomplete;
-}
+};
+
+const sortElement = document.querySelectorAll('#filter')[0];
+const tableOne = document.getElementById("table-one");
+// inputElement.type = "button"
+sortElement.addEventListener('change', () => {
+    renderTable(store, tableOne);
+});
