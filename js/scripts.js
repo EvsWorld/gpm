@@ -2,13 +2,15 @@
 
 const store = [
   // {
-  // deviceName: '',
-  // deviceType: '',
-  // deviceBrand: '',
-  // deviceModel: '',
-  // deviceInstallDate: ''
+  // deviceName: 'test name',
+  // deviceType: 'test Device',
+  // deviceBrand: 'test Brand',
+  // deviceModel: 'test model',
+  // deviceInstallDate: 'test install date',
+  // storeId: 'test1'
   // }
 ];
+
 
 function addData() {
   const tableOne = document.getElementById("table-one");
@@ -45,7 +47,7 @@ function addDataObject () {
   // build object
   let newRow = {};
   inputIds.forEach( tag => {
-    newRow[tag[1]] =  document.querySelectorAll(`#${tag[0]}`)[0] ? document.querySelectorAll(`#${tag[0]}`)[0].value : new Date();
+    newRow[tag[1]] =  document.querySelectorAll(`#${tag[0]}`)[0] ? document.querySelectorAll(`#${tag[0]}`)[0].value : Date.now().toString();
     console.log('newRow = ', newRow);
   });
   store.push(newRow); // push on store
@@ -57,35 +59,63 @@ function addDataObject () {
   formOne.reset();
 };
 
-
-function renderLastRow (storeR, tableR) {
-  const fillRow = (dataToRender, row) => {
-    const lastIndex = dataToRender[dataToRender.length-1]
-    console.log('dataToRender: ', dataToRender);
-    dataToRender = Object.values(dataToRender);
-    dataToRender = dataToRender.slice(0, dataToRender.length-1);
-    dataToRender.forEach( (field, index) => {
-      let inserted = row.insertCell(index);
-      inserted.innerHTML = field;
-    });
-    let trashButton = row.insertCell(lastIndex);
-    trashButton.innerHTML = `<i class='fas fa-caret-down'></i>`;
-    console.log('this = ', this);
-    trashButton.onclick = this.tableR.deleteRow(this)
-  };
-
-  let newRow = tableR.insertRow(tableR.length);
-  newRow.setAttribute('storeId', 'dummy')
-  const postToRender = storeR[storeR.length-1]
-  fillRow(postToRender, newRow);
+const fillRow = (storeR, tableR, dataToRender, row) => {
+  console.log('(from fill row 1 )    dataToRender: ', dataToRender);
+  console.log('typeof dataToRender = ', typeof dataToRender);
+  // dataToRender = Object.values(dataToRender);
+  // console.log('Object.values(dataToRender): ', dataToRender);
+  const lastIndex = dataToRender.length-1;
+  console.log('lastIndex = ', lastIndex);
+  // cut off id from end
+  dataToRender = dataToRender.slice(0, dataToRender.length-1);
+  console.log('dataToRender: ', dataToRender);
+  dataToRender.forEach( (field, index) => {
+    let inserted = row.insertCell(index);
+    inserted.innerHTML = field;
+  });
+  let trashButton = row.insertCell(lastIndex);
+  trashButton.innerHTML = `<i class='fas fa-trash'></i>`;
+  // trashButton.setAttribute('storeIdTr', 'test1');
+  trashButton.onclick = deleteTheRow.bind(null, dataToRender, storeR, tableR)
 };
 
 
+function renderLastRow (storeR, tableR) {
+  // console.log('postToRender.slice(-1) = ', postToRender.slice(-1));
+  // newRow.setAttribute('storeId', postToRender.slice(0,-1))
+  const postToRender = Object.values(storeR[storeR.length-1]);
+  // console.log('dataToRender: ', dataToRender);
+  let newRow = tableR.insertRow(tableR.length);
+  console.log('from renderLastRow,     postToRender = ', postToRender);
+  fillRow(storeR, tableR, postToRender, newRow);
+};
+
+function deleteTheRow (post, storeR, tableR) {
+  const itemId = post.pop()
+    storeR.forEach( (p,i) => {
+      // console.log('p.id = ', p.id);
+      // console.log('itemId = ', itemId);
+      if (p.id === itemId) {
+        storeR.splice(i,1);
+        console.log('storeR after = ', storeR);
+      }
+    });
+    // now remove the elements and rerender the whole table
+    renderTable(storeR, tableR)
+  };
+
 // not using
 function renderTable (storeR, tableR) {
+  // clear table before rerender
+  const tableRbody = tableR.tBodies.item(0);
+  const new_tbody = document.createElement('tbody');
+  tableRbody.parentNode.replaceChild(new_tbody, tableRbody);
+  // render all store data
   storeR.forEach( post => {
     let newRow = tableR.insertRow(tableR.length);
-    fillRow(post, newRow);
+    let postArray = Object.values(post);
+    console.log('from renderLastRow,     post = ', post);
+    fillRow(storeR, tableR, postArray, newRow);
   });
 };
 
