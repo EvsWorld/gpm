@@ -11,7 +11,8 @@ const store = [
   // }
 ];
 
-function addDataObject () {
+function addData () {
+  console.log(' addData called!!');
   const tableOne = document.getElementById("table-one");
   const inputIds = [['device-name','deviceName'], ['device-type','deviceType'], ['device-brand','deviceBrand'], ['device-model','deviceModel'], ['device-install-date','deviceInstallDate'], ['id', 'id']];
   const formOne = document.getElementById("form-one");
@@ -49,27 +50,21 @@ const fillRow = (storeR, tableR, postData, row) => {
 
 
 function renderLastRow (storeR, tableR) {
-  // console.log('postToRender.slice(-1) = ', postToRender.slice(-1));
-  // newRow.setAttribute('storeId', postToRender.slice(0,-1))
+  console.trace('tableR = ', tableR );
   const postToRender = Object.values(storeR[storeR.length-1]);
-  // console.log('dataToRender: ', dataToRender);
-  let newRow = tableR.insertRow(tableR.length);
-  // console.log('from renderLastRow,     postToRender = ', postToRender);
-  fillRow(storeR, tableR, postToRender, newRow);
+  const tableRbody = tableR.getElementsByTagName('tbody')[0];
+  console.trace('tableRbody = ', tableRbody);
+  let newRow = tableRbody.insertRow(tableRbody.rows.length);
+  fillRow(storeR, tableRbody, postToRender, newRow);
 };
 
 function deleteTheRow (postId, storeR, tableR) {
-  // console.trace('store', storeR);
-  // const itemId = post.pop()
-  console.trace('postId = ', postId)
+  console.log('DeleteTheRow called!!!');
     storeR.forEach( (p,i) => {
-      // console.log('p.id = ', p.id);
-      // console.log('itemId = ', itemId);
       if (p.id === postId) {
         console.trace(`after enter 'if', storeR = `, storeR);
         storeR.splice(i,1);
         console.trace('store after splice in deleteRow = ', storeR);
-
       }
     });
     // now remove the elements and rerender the whole table
@@ -78,17 +73,21 @@ function deleteTheRow (postId, storeR, tableR) {
 
 // not using
 function renderTable (storeR, tableR) {
+  console.log('enter renderTable!!!!!');
   // clear table before rerender
-  const tableRbody = tableR.tBodies.item(0);
+  console.trace(' tableR = ', tableR)
+  // const tableRbody = tableR.getElementsByTagName('tbody')[0];
+  // console.trace('tableRbody = ', tableRbody);
   const new_tbody = document.createElement('tbody');
-  tableRbody.parentNode.replaceChild(new_tbody, tableRbody);
+  console.log('new_tbody = ', new_tbody);
   // render all store data
   storeR.forEach( post => {
-    let newRow = tableR.insertRow(tableR.length);
+    let newRow = new_tbody.insertRow(tableR.length);
     let postArray = Object.values(post);
     console.trace('postArray = ', postArray);
-    fillRow(storeR, tableR, postArray, newRow);
+    fillRow(storeR, new_tbody, postArray, newRow);
   });
+  tableR.parentNode.replaceChild(new_tbody, tableR);
 };
 
 // to be called on every form change. enables submit button when form is complete and disables it when not complete
@@ -108,13 +107,6 @@ const validate = () => {
     });
   });
 
-  // console.log('formIncomplete = ', formIncomplete);
-  // const disabledOrNull = formIncomplete ? false : 'disabled';
-  // console.log('disabledOrNull = ', disabledOrNull);
-
   let addButton = document.querySelectorAll('#add-button')[0];
-  // console.log(`document.querySelectorAll('#add-button')[0] = `, document.querySelectorAll('#add-button')[0]);
-
   addButton.disabled = formIncomplete;
-
 }
