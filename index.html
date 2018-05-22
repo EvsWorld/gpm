@@ -64,10 +64,15 @@
     <div class='table-container'>
       <div class='above-table'>
         <div>Devices</div>
-        <select name="filter" id="filter">
-          <option value="device-name">Name</option>
-          <option value="device-install-date">Date</option>
-        </select>
+        <div>Order By
+          <select name="filter" id="filter">
+            <option value="deviceName">Name</option>
+            <option value="deviceType">Type</option>
+            <option value="deviceBrand">Brand</option>
+            <option value="deviceModel">Model</option>
+            <option value="deviceInstallDate">Date</option>
+          </select>
+        </div>
       </div>
 
       <table id='table-one'>
