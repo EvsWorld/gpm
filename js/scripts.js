@@ -3,7 +3,7 @@ const tableOne = document.getElementById("table-one");
 const sortElement = document.querySelectorAll('#filter')[0];
 sortElement.onchange = () => renderTable(tableOne);
 
-const store = [
+let store = [
   // {
   // deviceName: 'test name',
   // deviceType: 'test Device',
@@ -54,13 +54,13 @@ function deleteTheRow (postId, storeR, tableR) {
       }
     });
     // now remove the elements and rerender the whole table
-    renderTable( tableR)
+    renderTable(tableR)
   };
 
 // not using
 function renderTable (table) {
-  const tableBody = table.getElementsByTagName('tbody').item(0);
   console.log('renderTable called!!');
+  const tableBody = table.getElementsByTagName('tbody').item(0);
   const newTableBody = document.createElement('tbody');
   // render values to that new table body
   function renderRow (storeR, newTBody, postToRender, insertRowIndex) {
@@ -77,11 +77,12 @@ function renderTable (table) {
       });
       let trashButton = row.insertCell(indexToTackTrash);
       trashButton.innerHTML = `<i class='fas fa-trash'></i>`;
-      // trashButton.onclick = deleteTheRow(id, storeR, tableR)
+      trashButton.onclick = () => deleteTheRow(id, store, table)
     };
     fillRow(postToRender, newRow);
   };
-  // sortDevices(store); // sort the store
+  debugger;
+  sortDevices(store); // sort the store
   // for each object in store, create a new row in 'newTableBody'
   store.forEach( (post, i) => {
     let postArray = Object.values(post);
@@ -92,11 +93,13 @@ function renderTable (table) {
   tableBody.parentNode.replaceChild(newTableBody, tableBody);
 };
 
-function sortDevices () {
+function sortDevices (store) {
+  debugger;
   const e = document.getElementById('filter');
   const sortBy = e.options[e.selectedIndex].value;
-  console.log('sortBy = ', sortBy)
+  // console.log('sortBy = ', sortBy)
   store.sort(function(a,b) {return (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0);} );
+  debugger;
 }
 
 // to be called on every form change. enables submit button when form is complete and disables it when not complete
