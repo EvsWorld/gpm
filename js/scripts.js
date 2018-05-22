@@ -46,7 +46,7 @@ function addData () {
 };
 
 function renderRow (storeR, tableR, postToRender) {
-  console.trace('renderLastRow called!!!!')
+  console.trace('renderRow called!!!!')
   const fillRow = (postData, row) => {
     console.log('fillRow called!!');
     const id = postData.pop();
@@ -81,10 +81,10 @@ function deleteTheRow (postId, storeR, tableR) {
 
 // not using
 function renderTable (storeR, tableR) {
-  console.trace('enter renderTable!!!!!');
-  console.trace(`tableR = `, tableR);
-  const tableRbody = tableR.getElementsByTagName('tbody')[0];
-  console.trace(`tableRbody = `, tableRbody);
+  // console.trace('enter renderTable!!!!!');
+  // console.trace(`tableR = `, tableR);
+  // const tableRbody = tableR.getElementsByTagName('tbody')[0];
+  // console.trace(`tableRbody = `, tableRbody);
   //still fucks up when this isnt here
   // sortDevices(store, tableR)
 
@@ -97,9 +97,9 @@ function renderTable (storeR, tableR) {
   });
   // replace old table body with 'new_tbody'
   // console.trace('tableR.parentNode = ', tableR.parentNode)
-  console.trace('FROM RENDERTABLE:  tableRbody = ', tableRbody)
-  tableR.parentNode.replaceChild(new_tbody, tableRbody);
-  console.trace(`end of renderTable, store = `, store);
+  console.trace('FROM RENDERTABLE:  tableR = ', tableR)
+  tableR.parentNode.replaceChild(new_tbody, tableR);
+  // console.trace(`end of renderTable, store = `, store);
 };
 
 function sortDevices (storeR) {
