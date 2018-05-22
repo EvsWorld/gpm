@@ -1,7 +1,7 @@
 'use-strict';
 const tableOne = document.getElementById("table-one");
 const sortElement = document.querySelectorAll('#filter')[0];
-sortElement.onchange = () => renderTable(tableOne);
+sortElement.onchange = () => renderTable(store, tableOne);
 
 let store = [
   // {
@@ -38,7 +38,7 @@ function addData () {
   console.log('store = ', store);
   // render table
   const post = Object.values(store[store.length-1]);
-  renderTable(tableOne)
+  renderTable(store, tableOne)
   // reset fields
   formOne.reset();
 };
@@ -54,12 +54,12 @@ function deleteTheRow (postId, storeR, tableR) {
       }
     });
     // now remove the elements and rerender the whole table
-    renderTable(tableR)
+    renderTable(storeR, tableR)
   };
 
-// not using
-function renderTable (table) {
+function renderTable (store, table) {
   console.log('renderTable called!!');
+  sortDevices(store); // sort the store
   const tableBody = table.getElementsByTagName('tbody').item(0);
   const newTableBody = document.createElement('tbody');
   // render values to that new table body
@@ -82,7 +82,6 @@ function renderTable (table) {
     fillRow(postToRender, newRow);
   };
   debugger;
-  sortDevices(store); // sort the store
   // for each object in store, create a new row in 'newTableBody'
   store.forEach( (post, i) => {
     let postArray = Object.values(post);
@@ -93,12 +92,12 @@ function renderTable (table) {
   tableBody.parentNode.replaceChild(newTableBody, tableBody);
 };
 
-function sortDevices (store) {
+function sortDevices () {
   debugger;
   const e = document.getElementById('filter');
   const sortBy = e.options[e.selectedIndex].value;
   // console.log('sortBy = ', sortBy)
-  store.sort(function(a,b) {return (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0);} );
+  return store.sort(function(a,b) {return (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0);} );
   debugger;
 }
 
