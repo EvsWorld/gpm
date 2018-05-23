@@ -1,5 +1,5 @@
 Let's create a page for managing network connection devices as shown in this draft:
-![UI](greenpowermonitorpic.png)
+![UI](gpm.png)
 
 The page contain two parts:
 
